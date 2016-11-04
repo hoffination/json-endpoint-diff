@@ -1,0 +1,31 @@
+{
+  "name": "json-endpoint-diff",
+  "version": "0.0.1",
+  "description": "A tool for checking for regressions between two served versions of the same endpoint",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Hofferber",
+  "license": "MIT",
+  "dependencies": {
+    "json-diff": "^0.3.1",
+    "jsondiffpatch": "^0.2.4",
+    "material-ui": "^0.16.1",
+    "ramda": "^0.22.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-tap-event-plugin": "^1.0.0",
+    "superagent": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.0",
+    "babel-loader": "^6.2.7",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.25.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.3"
+  }
+}
