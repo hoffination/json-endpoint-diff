@@ -12,6 +12,9 @@ The project was created in React with a [Material-UI](http://www.material-ui.com
 - [superagent](https://github.com/visionmedia/superagent)
 - [jsondiffpatch](https://github.com/benjamine/jsondiffpatch)
 
+### Security Concerns
+I've been asked questions about whether or not data requests handled by this app are stored to a database or sent to a server. The answer is __no__. No data is stored from the app for any reason. This app currently only runs on the frontend without communicating to servers or databases to process JSON data or store requests.
+
 
 ## Develop
 

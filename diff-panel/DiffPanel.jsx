@@ -7,6 +7,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import CircularProgress from 'material-ui/CircularProgress';
 import request from 'superagent'
 
 const jsondiffpatch = require('../node_modules/jsondiffpatch/public/build/jsondiffpatch.min.js')
@@ -118,6 +119,7 @@ class DiffForm extends Component {
       endpointType_2: 'GET',
       endpointURL_2: '',
       parameters: [{name: '', value: '', id: 0}],
+      pending_submission: false,
       result_1: '',
       result_2: '',
       difference: ''
@@ -151,6 +153,9 @@ class DiffForm extends Component {
 
   handleSubmission(e) {
     e.preventDefault()
+    this.setState({
+      pending_submission: true
+    })
     let params = R.reduce(
       R.merge,
       {},
@@ -173,23 +178,38 @@ class DiffForm extends Component {
     request(this.state.endpointType_1, url_1)
       .send(params)
       .set('Accept', 'application/json')
+      .type('form')
       .end((err, res) => {
         if (err) {
-          alert(err)
+          alert(err);
+          this.setState({
+            pending_submission: false,
+            result_1: '',
+            result_2: '',
+            difference: ''
+          })
           return
         }
         request(this.state.endpointType_2, url_2)
           .send(params)
           .set('Accept', 'application/json')
+          .type('form')
           .end((err, res2) => {
             if (err) {
               alert(err)
+              this.setState({
+                pending_submission: false,
+                result_1: '',
+                result_2: '',
+                difference: ''
+              })
               return
             }
             this.setState({
               result_1: res.text,
               result_2: res2.text,
-              difference: formatter.html.format(jsondiffpatch.diff(JSON.parse(res.text), JSON.parse(res2.text)), JSON.parse(res.text))
+              difference: formatter.html.format(jsondiffpatch.diff(JSON.parse(res.text), JSON.parse(res2.text)), JSON.parse(res.text)),
+              pending_submission: false
             })
           })
       })
@@ -221,17 +241,21 @@ class DiffForm extends Component {
           parameters={this.state.parameters}
           onChange={this.handleParameterChange}
         />
-        <br/>
-        <RaisedButton primary={true} disabled={false} label="Submit" type="submit" />
-        <p style={{overflowY: 'auto', maxHeight: '80px'}}>
-          {this.state.result_1}
-        </p>
-        <Divider />
-        <p style={{overflowY: 'auto', maxHeight: '80px'}}>
-          {this.state.result_2}
-        </p>
-        <Divider />
-        <div style={{textAlign: 'left'}} dangerouslySetInnerHTML={{ __html: this.state.difference }}></div>
+      {!this.state.pending_submission ?
+          <div>
+            <br/>
+            <RaisedButton primary={true} disabled={false} label="Submit" type="submit" />
+            <p style={{overflowY: 'auto', maxHeight: '80px'}}>
+              {this.state.result_1}
+            </p>
+            <Divider />
+            <p style={{overflowY: 'auto', maxHeight: '80px'}}>
+              {this.state.result_2}
+            </p>
+            <Divider />
+            <div style={{textAlign: 'left'}} dangerouslySetInnerHTML={{ __html: this.state.difference }}></div>
+          </div>
+        : <CircularProgress />}
       </form>
     )
   }
