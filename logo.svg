@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="110.31mm" width="110.31mm" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 390.85717 390.85717">
+ <defs id="defs4">
+  <filter id="filter3398" style="color-interpolation-filters:sRGB">
+   <feFlood id="feFlood3400" result="flood" flood-opacity=".49804" flood-color="rgb(0,0,0)"/>
+   <feComposite id="feComposite3402" operator="in" result="composite1" in2="SourceGraphic" in="flood"/>
+   <feGaussianBlur id="feGaussianBlur3404" stdDeviation="4.7" result="blur" in="composite1"/>
+   <feOffset id="feOffset3406" result="offset" dx="6" dy="6"/>
+   <feComposite id="feComposite3408" operator="over" result="composite2" in2="offset" in="SourceGraphic"/>
+  </filter>
+ </defs>
+ <g id="layer1" transform="translate(-132.29 -114.08)">
+  <rect id="rect3336" fill-rule="evenodd" height="325.71" filter="url(#filter3398)" width="325.71" y="146.65" x="164.86" fill="#f2f2f2"/>
+  <g fill="#999">
+   <rect id="rect4210" height="34.345" width="22.223" y="171.51" x="191.93"/>
+   <rect id="rect4210-9" height="34.345" width="22.223" y="416.98" x="191.93"/>
+   <rect id="rect4210-5" height="34.345" width="47.477" y="211.92" x="218.19"/>
+   <rect id="rect4210-5-6" height="34.345" width="119.2" y="211.92" x="274.26"/>
+  </g>
+  <rect id="rect4210-5-0" height="34.345" width="79.802" y="253.33" x="218.28" fill="#f00"/>
+  <rect id="rect4210-5-8" height="34.345" width="36.365" y="253.33" x="305.15" fill="#f00"/>
+  <g fill="#999">
+   <rect id="rect4210-5-60" height="34.345" width="58.549" y="294.69" x="218.57"/>
+   <rect id="rect4210-5-6-3" height="34.345" width="172.06" y="294.69" x="284.63"/>
+   <rect id="rect4210-5-0-8" height="34.345" width="49.088" y="335.9" x="218.74"/>
+  </g>
+  <rect id="rect4210-5-8-1" height="34.345" width="92.08" y="335.9" x="274.9" fill="#f00"/>
+  <rect id="rect4210-5-0-5" height="34.345" width="79.802" y="376.98" x="218.74" fill="#999"/>
+  <rect id="rect4210-5-8-3" height="34.345" width="115.65" y="376.98" x="305.61" fill="#999"/>
+  <rect id="rect4210-5-8-1-2" height="34.345" width="63.151" y="335.9" x="373.96" fill="#0f0"/>
+ </g>
+</svg>

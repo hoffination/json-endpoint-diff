@@ -1,4 +1,7 @@
 # json-endpoint-diff
+
+![json-endpoint-diff icon](images/icon-128x128.png)
+
 > This tool will compare the JSON output of two REST endpoints to check for regressions
 
 Plug in two GET or POST endpoints, put in any parameters to request with, click to submit, and view a visual breakdown of the differences.
