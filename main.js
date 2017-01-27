@@ -1,4 +1,4 @@
-import DiffPanel from './diff-panel/DiffPanel.jsx'
+import BulkDiffPanel from './bulk-diff-panel/BulkDiffPanel.jsx'
 require("!style!css!./node_modules/jsondiffpatch/public/formatters-styles/html.css")
 
 if ('serviceWorker' in navigator) {
