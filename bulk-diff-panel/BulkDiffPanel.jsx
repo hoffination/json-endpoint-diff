@@ -215,68 +215,20 @@ class BulkDiffForm extends Component {
       let params_1 = ''
       if (_this.state.endpointType_1 === 'GET') {
         url_1 += item.value
+        _this.parseSecondUrl({_this, url_1, params_1, item, callback});
       } else {
         let params_1 = {};
         let queryParams = item.value.split('?')
         if (queryParams.length > 1) {
-            queryParams[1].split('&').forEach(x => {
-              let queryObj = x.split('=')
-              params_1[queryObj[0]] = queryObj[1]
-            });
+          url_1 += queryParams[0]
+          queryParams[1].split('&').forEach(x => {
+            let queryObj = x.split('=')
+            params_1[queryObj[0]] = queryObj[1]
+          });
         }
+        console.log(url_1, params_1)
+        _this.parseSecondUrl({_this, url_1, params_1, item, callback});
       }
-
-      let url_2 = _this.state.endpointURL_2
-      let params_2 = ''
-      if (_this.state.endpointType_2 === 'GET') {
-        url_2 += item.value;
-      } else {
-        let params_2 = {};
-        let queryParams = item.value.split('?')
-        if (queryParams.length > 1) {
-            queryParams[1].split('&').forEach(x => {
-              let queryObj = x.split('=')
-              params_2[queryObj[0]] = queryObj[1]
-            });
-        }
-      }
-
-      request(_this.state.endpointType_1, url_1)
-        .send(params_1)
-        .set('Accept', 'application/json')
-        .type('form')
-        .end((err1, res) => {
-          if (err1) {
-            console.error(err1);
-            item.result_1 = err1;
-          } else {
-            item.result_1 = res.text
-          }
-          request(_this.state.endpointType_2, url_2)
-            .send(params_2)
-            .set('Accept', 'application/json')
-            .type('form')
-            .end((err2, res2) => {
-              if (err2) {
-                console.error(err2)
-                item.result_2 = err2
-              } else {
-                item.result_2 = res2.text
-              }
-              if (err1 || err2) {
-                item.difference =  err1 || err2
-              } else {
-                console.log(res.text)
-                console.log(res2.text)
-                item.difference =  formatter.html.format(jsondiffpatch.diff(JSON.parse(res.text), JSON.parse(res2.text)), JSON.parse(res.text))
-              }
-              callback()
-            })
-        })
-
-
-
-      // TODO: batch up and submit requests to both services and store the results
     }, function finished(err) {
       if (err) {
         console.log(err);
@@ -287,6 +239,62 @@ class BulkDiffForm extends Component {
         parameters: updatedValues.sort((a, b) => b.difference.length - a.difference.length)
       })
     })
+  }
+
+  parseSecondUrl( {_this, url_1, params_1, item, callback} ) {
+    let url_2 = _this.state.endpointURL_2
+    let params_2 = ''
+    if (_this.state.endpointType_2 === 'GET') {
+      url_2 += item.value;
+      _this.requestFromEndpoints({_this, url_1, params_1, item, url_2, params_2, callback});
+    } else {
+      let params_2 = {};
+      let queryParams = item.value.split('?')
+      if (queryParams.length > 1) {
+        url_2 += queryParams[0]
+        queryParams[1].split('&').forEach(x => {
+          let queryObj = x.split('=')
+          params_2[queryObj[0]] = queryObj[1]
+        });
+      }
+      console.log(url_2, params_2)
+      _this.requestFromEndpoints({_this, url_1, params_1, item, url_2, params_2, callback});
+    }
+  }
+
+  requestFromEndpoints( {_this, url_1, params_1, item, url_2, params_2, callback} ) {
+    request(_this.state.endpointType_1, url_1)
+      .send(params_1)
+      .set('Accept', 'application/json')
+      .type('form')
+      .end((err1, res) => {
+        if (err1) {
+          console.error(err1);
+          item.result_1 = err1;
+        } else {
+          item.result_1 = res.text
+        }
+        request(_this.state.endpointType_2, url_2)
+          .send(params_2)
+          .set('Accept', 'application/json')
+          .type('form')
+          .end((err2, res2) => {
+            if (err2) {
+              console.error(err2)
+              item.result_2 = err2
+            } else {
+              item.result_2 = res2.text
+            }
+            if (err1 || err2) {
+              item.difference =  err1 || err2
+            } else {
+              console.log(res.text)
+              console.log(res2.text)
+              item.difference =  formatter.html.format(jsondiffpatch.diff(JSON.parse(res.text), JSON.parse(res2.text)), JSON.parse(res.text))
+            }
+            callback()
+          })
+      })
   }
 
   render () {
