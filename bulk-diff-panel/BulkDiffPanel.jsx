@@ -147,7 +147,7 @@ class ParameterList extends Component {
                 open={param.open}
                 onRequestClose={this.handleClose}
               >
-                <div style={{textAlign: 'left'}} dangerouslySetInnerHTML={{ __html: param.difference }}></div>
+                <div style={{textAlign: 'left', overflowY: 'auto', maxHeight: 'inherit'}} dangerouslySetInnerHTML={{ __html: param.difference }}></div>
               </Dialog>
             </div>
           )
@@ -304,8 +304,10 @@ class BulkDiffForm extends Component {
         onSubmit={this.handleSubmission}
       >
         <h1>JSON Endpoint Diff</h1>
-        <p>This tool will compare the JSON output of two REST services. These endpoints must
-          return JSON in order for this tool to return the differences in output.
+        <p>
+          This tool will compare the JSON output of two REST services. These endpoints must
+          return JSON in order for this tool to return the differences in output. POST parameters
+          can be added to the end of the url as query parameters (ex: endpoint?param=data&param2=moreData).
         </p>
         <ServiceField
           hint={'Service 1'}
