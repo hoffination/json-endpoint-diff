@@ -12,11 +12,11 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import request from 'superagent'
 import eachLimit from 'async/eachLimit';
+import { Link } from 'react-router'
 
 const jsondiffpatch = require('../node_modules/jsondiffpatch/public/build/jsondiffpatch.min.js')
 const formatter = require('../node_modules/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js')
 
-import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
@@ -25,7 +25,7 @@ const CONTAINER_STYLE = {
   justifyContent: 'space-around'
 }
 
-class ServiceField extends Component {
+class BulkServiceField extends Component {
   constructor(props) {
       super(props)
 
@@ -64,7 +64,7 @@ class ServiceField extends Component {
   }
 }
 
-class ParameterList extends Component {
+class BulkParameterList extends Component {
   constructor(props) {
     super(props)
 
@@ -303,25 +303,26 @@ class BulkDiffForm extends Component {
         style={{textAlign: 'center'}}
         onSubmit={this.handleSubmission}
       >
-        <h1>JSON Endpoint Diff</h1>
+        <h1>JSON Bulk Endpoint Diff</h1>
         <p>
           This tool will compare the JSON output of two REST services. These endpoints must
           return JSON in order for this tool to return the differences in output. POST parameters
           can be added to the end of the url as query parameters (ex: endpoint?param=data&param2=moreData).
         </p>
-        <ServiceField
+        <Link to={`/`}>Return to Diff Panel</Link>
+        <BulkServiceField
           hint={'Service 1'}
           reqType={this.state.endpointType_1}
           url={this.state.endpointURL_1}
           onChange={this.handleEndpointChange_1}
         />
-        <ServiceField
+        <BulkServiceField
           hint={'Service 2'}
           reqType={this.state.endpointType_2}
           url={this.state.endpointURL_2}
           onChange={this.handleEndpointChange_2}
         />
-        <ParameterList
+        <BulkParameterList
           parameters={this.state.parameters}
           onChange={this.handleParameterChange}
         />
@@ -336,27 +337,10 @@ class BulkDiffForm extends Component {
   }
 }
 
-class DiffPanel extends Component {
+export default class BulkDiffPanel extends Component {
   render() {
-    injectTapEventPlugin()
     return (
       <BulkDiffForm/>
     )
   }
 }
-
-const STYLE = {
-  padding: '10px',
-  maxWidth: '700px',
-  marginLeft: 'auto',
-  marginRight: 'auto'
-}
-
-ReactDOM.render(
- <MuiThemeProvider>
-   <Paper style={STYLE}>
-     <DiffPanel />
-   </Paper>
- </MuiThemeProvider>,
- document.getElementById('container')
-)

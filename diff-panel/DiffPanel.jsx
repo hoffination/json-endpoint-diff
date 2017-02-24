@@ -9,11 +9,11 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import CircularProgress from 'material-ui/CircularProgress';
 import request from 'superagent'
+import { Link } from 'react-router'
 
 const jsondiffpatch = require('../node_modules/jsondiffpatch/public/build/jsondiffpatch.min.js')
 const formatter = require('../node_modules/jsondiffpatch/public/build/jsondiffpatch-formatters.min.js')
 
-import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
@@ -225,6 +225,7 @@ class DiffForm extends Component {
         <p>This tool will compare the JSON output of two REST endpoints. These endpoints must
           return JSON in order for this tool to return the differences in output.
         </p>
+        <Link to={`/bulk`}>Go to Bulk Diff Panel</Link>
         <EndpointField
           hint={'Endpoint 1'}
           reqType={this.state.endpointType_1}
@@ -261,27 +262,10 @@ class DiffForm extends Component {
   }
 }
 
-class DiffPanel extends Component {
+export default class DiffPanel extends Component {
   render() {
-    injectTapEventPlugin()
     return (
       <DiffForm/>
     )
   }
 }
-
-const STYLE = {
-  padding: '10px',
-  maxWidth: '700px',
-  marginLeft: 'auto',
-  marginRight: 'auto'
-}
-
-ReactDOM.render(
- <MuiThemeProvider>
-   <Paper style={STYLE}>
-     <DiffPanel />
-   </Paper>
- </MuiThemeProvider>,
- document.getElementById('container')
-)
