@@ -11,9 +11,8 @@ import BulkDiffPanel from './bulk-diff-panel/BulkDiffPanel.jsx'
 require("!style!css!./node_modules/jsondiffpatch/public/formatters-styles/html.css")
 
 // const NoMatch = React.createClass({/*...*/})
-
 const STYLE = {
-  padding: '10px',
+  padding: '20px',
   maxWidth: '700px',
   marginLeft: 'auto',
   marginRight: 'auto'
@@ -51,3 +50,5 @@ if ('serviceWorker' in navigator) {
     console.debug('ServiceWorker registration failed: ', err);
   })
 }
+
+
